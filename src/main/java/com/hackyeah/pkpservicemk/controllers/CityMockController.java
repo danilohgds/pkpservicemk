@@ -8,6 +8,7 @@ import java.util.Random;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,6 +19,7 @@ import com.hackyeah.pkpservicemk.mockEntities.Trip;
 @SuppressWarnings("deprecation")
 public class CityMockController {
 
+	@CrossOrigin(origins = "*")
 	@GetMapping("/getCities")
 	@ResponseBody
 	public ResponseEntity<ArrayList<String>> getAllCities() {
@@ -29,6 +31,7 @@ public class CityMockController {
 		return ResponseEntity.status(HttpStatus.OK).body(plcities);
 	}
 
+	@CrossOrigin(origins = "*")
 	@GetMapping("/getTrips")
 	@ResponseBody
 	public ResponseEntity<ArrayList<Trip>> getTripsFromTo(@RequestParam String sourceCity,

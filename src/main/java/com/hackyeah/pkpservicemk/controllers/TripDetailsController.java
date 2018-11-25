@@ -1,5 +1,6 @@
 package com.hackyeah.pkpservicemk.controllers;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -205,7 +206,7 @@ public class TripDetailsController {
 	@CrossOrigin(origins ="*")
 	@GetMapping("/getStops")
 	@ResponseBody
-	public ResponseEntity<ArrayList<Stop>> getTripsFromTo(@RequestParam String from,@RequestParam String to){
+	public ResponseEntity<Trip> getTripsFromTo(@RequestParam String from,@RequestParam String to){
 		ArrayList<Stop> stops = new ArrayList<Stop>();
 		Set<String> stopnames = new HashSet<String>();
 		Random r = new Random();
@@ -223,7 +224,25 @@ public class TripDetailsController {
 			}
 		}
 		
-		return ResponseEntity.status(HttpStatus.OK).body(stops);
+		Trip trip = new Trip();
+		trip.setSource(from);
+		trip.setDestination(to);
+		result = r.nextInt(1000 - 1) + 1;
+		trip.setTrainName("EIC" + result.toString());
+		trip.setPrice(r.nextInt(400 - 200) + 200);
+		trip.setPriceSecondClass((r.nextInt(100 - 50) + 50));
+		trip.setAvailableSeats(r.nextInt(100 - 1) + 1);
+
+		final Random random = new Random();
+		final int millisInDay = 24 * 60 * 60 * 1000;
+		Time time = new Time((long) random.nextInt(millisInDay));
+		trip.setDeparture(String.valueOf(time.getHours())+":"+String.valueOf(time.getMinutes()));
+ 		time.setHours(time.getHours()+2);	
+ 		trip.setArrival(String.valueOf(time.getHours())+":"+String.valueOf(time.getMinutes()));
+		
+		trip.setStops(stops);
+		
+		return ResponseEntity.status(HttpStatus.OK).body(trip);
 		
 	}
 

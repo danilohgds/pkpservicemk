@@ -1,14 +1,18 @@
 package com.hackyeah.pkpservicemk.mockEntities;
 
+import java.util.ArrayList;
+
 public class Trip {
 	private int tripId;
 	private String trainName;
 	private String source;
 	private String destination;
 	private Integer price;
+	private Integer priceSecondClass;
 	private String departure;
 	private String arrival;
 	private Integer availableSeats;
+	private ArrayList<Stop> stops;
 	
 	public Integer getAvailableSeats() {
 		return availableSeats;
@@ -57,5 +61,17 @@ public class Trip {
 	}
 	public void setDestination(String destination) {
 		this.destination = destination;
+	}
+	public Integer getPriceSecondClass() {
+		return priceSecondClass;
+	}
+	public void setPriceSecondClass(Integer priceSecondClass) {
+		this.priceSecondClass = priceSecondClass;
+	}
+	public ArrayList<Stop> getStops() {
+		return stops;
+	}
+	public void setStops(ArrayList<Stop> stops) {
+		this.stops = stops;
 	}
 }
